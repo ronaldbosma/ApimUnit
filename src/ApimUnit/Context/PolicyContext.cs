@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace ApimUnit.Context
 {
@@ -18,7 +13,7 @@ namespace ApimUnit.Context
 
         public IReadOnlyDictionary<string, object> Variables { get; }
         
-        public void SetVariable(string name, string value)
+        public void SetVariable(string name, object value)
         {
             _variables[name] = value;
         }
