@@ -8,8 +8,11 @@ namespace ApimUnit.Context
 
         public PolicyContext()
         {
+            Request = new Request();
             Variables = new ReadOnlyDictionary<string, object>(_variables);
         }
+
+        public IRequest Request { get; }
 
         public IReadOnlyDictionary<string, object> Variables { get; }
         

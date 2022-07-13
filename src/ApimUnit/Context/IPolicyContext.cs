@@ -2,6 +2,8 @@
 {
     public interface IPolicyContext
     {
+        IRequest Request { get; }
+
         IReadOnlyDictionary<string, object> Variables { get; }
     }
 }

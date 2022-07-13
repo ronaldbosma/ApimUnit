@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace ApimUnit.Tests.Policies
+﻿namespace ApimUnit.Tests.Policies
 {
     [TestClass]
     public class SetVariablePolicyTests
@@ -45,6 +43,23 @@ namespace ApimUnit.Tests.Policies
 
             // Assert
             var expectedVariables = new Dictionary<string, object> { { sut.Name, sut.Value } };
+            policyContext.Variables.Should().BeEquivalentTo(expectedVariables);
+        }
+
+        [TestMethod]
+        public void Execute_Should_Update_Variable_With_Result_From_Single_Statement_Expression()
+        {
+            // Arrange
+            var policyContext = new PolicyContext();
+            ((Request)policyContext.Request).SetMatchedParameter("param1", "MyValue");
+
+            var sut = SetVariablePolicy.CreateFrom(@"<set-variable name='MyVar' value='@(context.Request.MatchedParameters[""param1""])' />");
+
+            // Act
+            sut.Execute(policyContext);
+
+            // Assert
+            var expectedVariables = new Dictionary<string, object> { { sut.Name, "MyValue" } };
             policyContext.Variables.Should().BeEquivalentTo(expectedVariables);
         }
     }
