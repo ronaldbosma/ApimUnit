@@ -1,15 +1,21 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Xml.Linq;
 
 namespace ApimUnit.Tests.Policies
 {
     [TestClass]
     public class SetVariablePolicyTests
     {
+        [TestMethod]
+        public void CreateFrom_Should_Create_SetVariablePolicy_For_Valid_Element()
+        {
+            // Act
+            var result = SetVariablePolicy.CreateFrom(@"<set-variable name='MyVar' value='MyValue' />");
+
+            // Assert
+            result.Name.Should().Be("MyVar");
+            result.Value.Should().Be("MyValue");
+        }
+
         [TestMethod]
         public void Execute_Should_Add_Variable_If_It_Does_Not_Exist()
         {

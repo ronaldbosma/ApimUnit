@@ -1,4 +1,5 @@
 ﻿using ApimUnit.Context;
+using System.Xml.Linq;
 
 namespace ApimUnit.Policies
 {
@@ -18,6 +19,16 @@ namespace ApimUnit.Policies
         {
             var context = (PolicyContext)policyContext;
             context.SetVariable(Name, Value);
+        }
+
+        public static SetVariablePolicy CreateFrom(string element) => CreateFrom(XElement.Parse(element));
+
+        public static SetVariablePolicy CreateFrom(XElement element)
+        {
+            var name = element.Attribute("name")!.Value;
+            var value = element.Attribute("value")!.Value;
+
+            return new SetVariablePolicy(name, value);
         }
     }
 }
